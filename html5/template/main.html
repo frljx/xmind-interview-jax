@@ -1,0 +1,79 @@
+<template>
+  <table>
+    <thead>
+      <tr>
+        <th>账单时间</th>
+        <th>账单类型</th>
+        <th>账单分类</th>
+        <th>
+          账单金额
+          <span
+            class="sort {{ ['', 'asc', 'desc'][sorter.amount] }}"
+            data-sort="amount"
+            onclick="{{ $handleSort }}"
+          ></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ #list }}
+      <tr>
+        <td>{{ fmtTime }}</td>
+        <td>{{ typeName }}</td>
+        <td>{{ categoryName }}</td>
+        <td class="text-right">{{ fmtAmount }}</td>
+      </tr>
+      {{ /# }}
+    </tbody>
+  </table>
+</template>
+
+<script>
+  // 外层作用域，由于数据绑定机制，需要用回调的方式调用作用域内的方法
+  this.$on('rerender-main', function () {
+    this.rerender()
+  })
+
+  return {
+    data() {
+      return {
+        list: this.root.bill,
+        sorter: {
+          amount: 0, // 0不排序 1 升序 2 降序
+        },
+      }
+    },
+    doSort(sortField) {
+      if (sortField === 'default') {
+        this.sorter.amount = 0
+        this.list.sort((a, b) => a.defaultSort - b.defaultSort)
+        this.$forceUpdate()
+        return
+      }
+
+      let sortType = this.sorter[sortField]
+      sortType = sortType === 0 ? 1 : sortType === 1 ? 2 : 0
+
+      if (sortType === 0 || sortType === 'default') {
+        this.list.sort((a, b) => a.defaultSort - b.defaultSort)
+      } else if (sortType === 1) {
+        this.list.sort((a, b) => +a.amount - +b.amount)
+      } else {
+        this.list.sort((a, b) => +b.amount - +a.amount)
+      }
+      this.sorter[sortField] = sortType
+      this.$forceUpdate()
+    },
+    handleSort(evt) {
+      if (!this.list || !this.list.length) return
+      const sortField = evt.target.dataset.sort
+      this.doSort(sortField)
+    },
+    rerender() {
+      this.list = this.root.bill
+      // 清除排序
+      this.doSort('default')
+      this.$forceUpdate()
+    },
+  }
+</script>

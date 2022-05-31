@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./app.css" />
+    <title>xmind面试题</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header" data-import="header"></header>
+      <main class="main" data-import="main"></main>
+      <footer class="footer" data-import="footer"></footer>
+
+      <!-- 添加账单弹窗 -->
+      <add-amount-dialog data-import="add-amount"></add-amount-dialog>
+    </div>
+
+    <script src="./utils/index.js"></script>
+    <script src="./libs/mustache.global.js"></script>
+    <!-- <script src="./mustache.global.js"></script> -->
+    <script src="./app.js"></script>
+    <script>
+      ;(async function (_this) {
+        const { loadData, toList, inject } = xUtils
+        // 读取两个表格数据源
+        let bill = await loadData('./static/bill.csv')
+        let categories = await loadData('./static/categories.csv')
+
+        // csv to list
+        bill = toList(bill)
+        categories = toList(categories)
+
+        // 注入并格式化数据
+        inject(bill, categories)
+
+        // 初始化数据
+        const data = {
+          bill,
+          categories,
+        }
+
+        const xApp = new XApp(app, data)
+
+        xApp.$on('search-change', function ({ month, category, type }) {
+          console.log(month, category)
+          data.bill =
+            month === '全部'
+              ? bill
+              : bill.filter((t) => t.timeObj.getMonth() + 1 === +month)
+
+          data.bill = data.bill.filter((t) => {
+            return type === '全部' ? true : t.type === type
+          })
+
+          data.bill = data.bill.filter((t) => {
+            return category === '全部' ? true : t.category === category
+          })
+          // 通知main和footer重新渲染
+          xApp.$emit('rerender-main')
+          xApp.$emit('rerender-footer')
+        })
+
+        xApp.$on('add-amount', function (submitData) {
+          // 将数据格式化
+          inject([submitData], categories)
+          // 加入原始数据，模拟返回数据
+          bill.push(submitData)
+          // 加入使用数据
+          data.bill.push(submitData)
+          xApp.$emit('rerender-main')
+          xApp.$emit('rerender-footer')
+        })
+      })(window)
+    </script>
+  </body>
+</html>

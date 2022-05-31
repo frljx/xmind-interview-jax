@@ -1,0 +1,134 @@
+<template>
+  <div class="x-dialog-mask" style="display: {{ visible ? 'flex' : 'none' }};opacity: {{ visible ? '1' : '0' }}">
+    <div class="x-dialog">
+      <div class="header">
+        <h3 class="titile">添加账单</h3>
+      </div>
+      <div class="body">
+        <form id="addAmount" name="addAmount">
+          <div class="form-item" required="请选择账单日期" prop="time">
+            <label for="time">账单日期：</label>
+            <input type="datetime-local" name="time" value="{{ form.time }}" onchange="{{ $handleChangeTime}}" />
+          </div>
+          <div class="form-item" required="请选择账单类型" prop="type">
+            <label for="type">账单类型：</label>
+            <select name="type" value="{{ form.type }}" onchange="{{ $handleChangeType }}">
+              <option value="" disabled selected hidden>请选择</option>
+              <option value="1" {{ '1' === form.type ? 'selected' : '' }}>收入</option>
+              <option value="0" {{ '0' === form.type ? 'selected' : '' }}>支出</option>
+            </select>
+          </div>
+          <div class="form-item" required="请选择账单分类" prop="category">
+            <label for="category">账单分类：</label>
+            <select name="category" onchange="{{ $handleChangeCategory }}">
+              <option value="" disabled selected hidden>请选择</option>
+              {{ #categories }}
+              <option value="{{id}}" {{ id === ^form.category ? 'selected' : '' }}>{{ name }}</option>
+              {{ /# }}
+            </select>
+          </div>
+          <div class="form-item" required="请输入账单金额" prop="amount">
+            <label for="amount">账单金额：</label>
+            <input name="amount" value="{{ form.amount }}" type="number" />
+          </div>
+        </form>
+      </div>
+      <div class="footer">
+        <button
+          class="x-button default"
+          style="margin-right: 20px"
+          onclick="{{$hide}}"
+        >
+          取消
+        </button>
+        <button class="x-button primary" onclick="{{ $handleSubmit }}">
+          确定
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  this.$on('visible-add-amount', function () {
+    this.visible ? this.hide() : this.show()
+  })
+  return {
+    data() {
+      return {
+        visible: false,
+        month: ['全部', ...new Array(12).fill(0).map((_, i) => i + 1)],
+        categories: this.root.categories,
+        form: {
+          time: '',
+          type: '',
+          category: '',
+          amount: 0,
+        },
+      }
+    },
+    handleSubmit(evt) {
+      const form = document.querySelector('#addAmount')
+      let formData = new FormData(form)
+
+      let validates = form.querySelectorAll('[required]')
+
+      let data = {}
+      let entries = formData.entries()
+      for (let en of entries) {
+        data[en[0]] = en[1]
+      }
+
+      for (let i = 0; i < validates.length; i++) {
+        let v = validates[i]
+        let prop = v.getAttribute('prop')
+        if (!prop) continue
+        if (!data[prop]) {
+          let text = v.getAttribute('required')
+          alert(text || '不能为空') // 就不写ui了
+          return
+        }
+      }
+
+      this.$emit('add-amount', {...data, time: new Date(data.time).getTime()})
+      this.hide()
+    },
+    handleChangeTime(evt) {
+      this.form.time = evt.target.value
+    },
+    handleChangeType(evt) {
+      let type = evt.target.value
+      // 切换类型时过滤账单分类
+      this.categories = this.root.categories.filter(t => t.type === type)
+      this.form.type = type
+      this.form.category = ''
+      this.rerender()
+    },
+    handleChangeCategory(evt) {
+      this.form.category = evt.target.value
+    },
+    hide() {
+      const that = this
+      this.visible = false
+      let el = that._x_c.elm.querySelector('.x-dialog-mask')
+      el.style.opacity = 0
+      el.removeEventListener('transitionend', this.rerender.bind(that))
+      el.addEventListener('transitionend', this.rerender.bind(that), false)
+    },
+    show() {
+      const that = this
+      this.visible = true
+      this.$forceUpdate()
+      let el = that._x_c.elm.querySelector('.x-dialog-mask')
+      el.style.opacity = 0
+      window.requestAnimationFrame(function () {
+        let el = that._x_c.elm.querySelector('.x-dialog-mask')
+        el.style.opacity = 1
+      })
+    },
+    rerender() {
+      this.$forceUpdate()
+    },
+    created() {},
+  }
+</script>

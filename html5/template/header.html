@@ -1,0 +1,72 @@
+<template>
+  <div class="header-item">
+    <label>月份：</label>
+    <select name="month" id="month" onchange="{{ $handleChangeMonth }}">
+      {{ #month }}
+      <option value="{{.}}" {{ . === search.month ? 'selected' : '' }} >{{ . }}</option>
+      {{ /# }}
+    </select>
+  </div>
+  <div class="header-item">
+    <label>账单类型：</label>
+    <select name="type" id="type" onchange="{{ $handleChangeType }}">
+      <option value="全部"  {{ '全部' === search.type ? 'selected' : '' }}>全部</option>
+      <option value="1" {{ '1' === search.type ? 'selected' : '' }}>收入</option>
+      <option value="0" {{ '0' === search.type ? 'selected' : '' }}>支出</option>
+    </select>
+  </div>
+  <div class="header-item">
+    <label>账单分类：</label>
+    <select name="categories" id="categories" onchange="{{ $handleChangeCategory }}">
+      <option value="全部">全部</option>
+      {{ #categories }}
+      <option value="{{id}}" {{ id === ^search.category ? 'selected' : '' }}>{{ name }}</option>
+      {{ /# }}
+    </select>
+  </div>
+  <div class="header-item">
+    <button class="x-button primary" onclick="{{$handleAdd}}">新增账单</button>
+  </div>
+</template>
+
+<script>
+  return {
+    data() {
+      return {
+        month: ['全部', ...new Array(12).fill(0).map((_, i) => i + 1)],
+        categories: this.root.categories,
+        search: {
+          month: '全部',
+          type: '全部',
+          category: '全部'
+        },
+      }
+    },
+    // 通过$事件符激活
+    handleChangeMonth(evt) {
+      let month = evt.target.value
+      this.search.month = month
+      this.$emit('search-change', this.search)
+    },
+    handleChangeCategory(evt) {
+      let category = evt.target.value
+      this.search.category = category
+      this.$emit('search-change', this.search)
+    },
+    handleChangeType(evt) {
+      let type = evt.target.value
+      this.search.type = type
+      this.categories = this.root.categories.filter(t => type === '全部' ? true : t.type === type)
+      this.search.category = '全部'
+      this._x_c.elm
+      this.$emit('search-change', this.search)
+      this.$forceUpdate()
+    },
+    handleAdd() {
+      this.$emit('visible-add-amount')
+    },
+    created() {
+      console.log(this.html)
+    },
+  }
+</script>

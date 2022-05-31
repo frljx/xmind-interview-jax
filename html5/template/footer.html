@@ -1,0 +1,42 @@
+<template>
+  <p>统计信息： <span>{{ info }}</span></p>
+</template>
+
+<script>
+  const { thousands } = xUtils
+  this.$on('rerender-footer', function () {
+    this.rerender()
+  })
+  return {
+    data() {
+      return {
+        info: '',
+      }
+    },
+    rerender() {
+      this.genInfo()
+      this.$forceUpdate()
+    },
+    genInfo() {
+      let bill = this.root.bill
+      if (!bill.length) {
+        this.info = '暂无对账单'
+        return
+      }
+      let sum = { income: 0, pay: 0 }
+      bill.forEach((t) => {
+        if (t.type === '1') {
+          sum.income += +t.amount
+        } else {
+          sum.pay += +t.amount
+        }
+      })
+      this.info = `其中收入：${thousands(sum.income)}元，支出：${thousands(
+        sum.pay
+      )}元`
+    },
+    created() {
+      this.genInfo()
+    },
+  }
+</script>

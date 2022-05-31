@@ -1,0 +1,169 @@
+@import '~antd/dist/antd.css';
+.App {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-item {
+  margin-right: 25px;
+}
+
+header select {
+  width: 140px;
+  height: 30px;
+  line-height: 30px;
+}
+button.x-button {
+  background-color: #4082bf;
+  color: #fff;
+  height: 30px;
+  padding: 0 15px;
+  border-radius: 3px;
+  border: 1px solid #4586c3;
+  cursor: pointer;
+}
+
+button.x-button:hover {
+  opacity: 0.9;
+}
+button.x-button.default {
+  /* background-color:  */
+  margin-right: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #444;
+}
+button.x-button.default:hover {
+  background: #f7f7f7;
+}
+
+header,
+footer {
+  height: 50px;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+footer {
+  justify-content: flex-end;
+}
+main {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+main table {
+  width: 100%;
+  border-collapse: collapse;
+}
+main table thead {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+main table th {
+  background: #4e9ce5;
+  color: #fff;
+  width: 25%;
+}
+
+main table th .sort {
+  background-image: url('../assets/images/sort.png');
+  background-size: 100%;
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+main table th .asc {
+  background-image: url('../assets/images/asc.png');
+}
+main table th .desc {
+  background-image: url('../assets/images/desc.png');
+}
+
+main table th,
+main table td {
+  border: 1px solid #eee;
+  padding: 5px 10px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* dialog样式 */
+.x-dialog-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.x-dialog-mask .x-dialog {
+  width: 520px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 3px 5px 5px 0px #aaa;
+}
+
+.x-dialog-mask .x-dialog .header,
+.x-dialog-mask .x-dialog .footer {
+  height: 50px;
+  padding: 0 15px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.x-dialog-mask .x-dialog .header {
+  border-bottom: 1px solid #eee;
+}
+.x-dialog-mask .x-dialog .body {
+  min-height: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.x-dialog-mask .x-dialog .footer {
+  border-top: 1px solid #eee;
+  justify-content: flex-end;
+}
+
+.x-dialog-mask .x-dialog .body form {
+}
+.x-dialog-mask .x-dialog .body form .form-item {
+  margin: 15px 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+.x-dialog-mask .x-dialog .body form .form-item select,
+.x-dialog-mask .x-dialog .body form .form-item input {
+  width: 200px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 5px;
+  margin: 0;
+  margin-left: 15px;
+  box-sizing: border-box;
+}
