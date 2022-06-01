@@ -91,7 +91,7 @@
       b.timeObj = new Date(+b.time)
       b.fmtTime = xUtils.fmtDate(b.timeObj, 'yyyy-MM-dd hh:mm:ss')
       b.fmtAmount = xUtils.thousands(b.amount)
-      b.defaultSort = b.time
+      b.defaultSort = bill.length > 1 ? i : b.time
     })
   }
 })(window)
