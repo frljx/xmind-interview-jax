@@ -1967,6 +1967,11 @@
   "resolved" "https://registry.npmmirror.com/@types/prop-types/-/prop-types-15.7.5.tgz"
   "version" "15.7.5"
 
+"@types/pubsub-js@^1.8.3":
+  "integrity" "sha512-6BqY04dh2UV1dNV690tyJVJYQ0U6qBH4tU+FCwY1Mhl8jOPOP9qiIvgLnB59cVik/E6/R002oXZpGiDm+2C8eA=="
+  "resolved" "https://registry.npmmirror.com/@types/pubsub-js/-/pubsub-js-1.8.3.tgz"
+  "version" "1.8.3"
+
 "@types/q@^1.5.1":
   "integrity" "sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ=="
   "resolved" "https://registry.npmmirror.com/@types/q/-/q-1.5.5.tgz"
@@ -7332,6 +7337,11 @@
   "resolved" "https://registry.npmmirror.com/psl/-/psl-1.8.0.tgz"
   "version" "1.8.0"
 
+"pubsub-js@^1.9.4":
+  "integrity" "sha512-hJYpaDvPH4w8ZX/0Fdf9ma1AwRgU353GfbaVfPjfJQf1KxZ2iHaHl3fAUw1qlJIR5dr4F3RzjGaWohYUEyoh7A=="
+  "resolved" "https://registry.npmmirror.com/pubsub-js/-/pubsub-js-1.9.4.tgz"
+  "version" "1.9.4"
+
 "punycode@^2.1.0", "punycode@^2.1.1":
   "integrity" "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A=="
   "resolved" "https://registry.npmmirror.com/punycode/-/punycode-2.1.1.tgz"
@@ -7835,62 +7845,7 @@
   "resolved" "https://registry.npmmirror.com/react-refresh/-/react-refresh-0.11.0.tgz"
   "version" "0.11.0"
 
-"react-scripts@5.0.1":
-  "integrity" "sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ=="
-  "resolved" "https://registry.npmmirror.com/react-scripts/-/react-scripts-5.0.1.tgz"
-  "version" "5.0.1"
-  dependencies:
-    "@babel/core" "^7.16.0"
-    "@pmmmwh/react-refresh-webpack-plugin" "^0.5.3"
-    "@svgr/webpack" "^5.5.0"
-    "babel-jest" "^27.4.2"
-    "babel-loader" "^8.2.3"
-    "babel-plugin-named-asset-import" "^0.3.8"
-    "babel-preset-react-app" "^10.0.1"
-    "bfj" "^7.0.2"
-    "browserslist" "^4.18.1"
-    "camelcase" "^6.2.1"
-    "case-sensitive-paths-webpack-plugin" "^2.4.0"
-    "css-loader" "^6.5.1"
-    "css-minimizer-webpack-plugin" "^3.2.0"
-    "dotenv" "^10.0.0"
-    "dotenv-expand" "^5.1.0"
-    "eslint" "^8.3.0"
-    "eslint-config-react-app" "^7.0.1"
-    "eslint-webpack-plugin" "^3.1.1"
-    "file-loader" "^6.2.0"
-    "fs-extra" "^10.0.0"
-    "html-webpack-plugin" "^5.5.0"
-    "identity-obj-proxy" "^3.0.0"
-    "jest" "^27.4.3"
-    "jest-resolve" "^27.4.2"
-    "jest-watch-typeahead" "^1.0.0"
-    "mini-css-extract-plugin" "^2.4.5"
-    "postcss" "^8.4.4"
-    "postcss-flexbugs-fixes" "^5.0.2"
-    "postcss-loader" "^6.2.1"
-    "postcss-normalize" "^10.0.1"
-    "postcss-preset-env" "^7.0.1"
-    "prompts" "^2.4.2"
-    "react-app-polyfill" "^3.0.0"
-    "react-dev-utils" "^12.0.1"
-    "react-refresh" "^0.11.0"
-    "resolve" "^1.20.0"
-    "resolve-url-loader" "^4.0.0"
-    "sass-loader" "^12.3.0"
-    "semver" "^7.3.5"
-    "source-map-loader" "^3.0.0"
-    "style-loader" "^3.3.1"
-    "tailwindcss" "^3.0.2"
-    "terser-webpack-plugin" "^5.2.5"
-    "webpack" "^5.64.4"
-    "webpack-dev-server" "^4.6.0"
-    "webpack-manifest-plugin" "^4.0.2"
-    "workbox-webpack-plugin" "^6.4.1"
-  optionalDependencies:
-    "fsevents" "^2.3.2"
-
-"react@*", "react@^18.0.0", "react@^18.1.0", "react@>= 16", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.9.0":
+"react@*", "react@^18.0.0", "react@^18.1.0", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.9.0":
   "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
   "resolved" "https://registry.npmmirror.com/react/-/react-18.1.0.tgz"
   "version" "18.1.0"
@@ -8996,7 +8951,7 @@
   dependencies:
     "is-typedarray" "^1.0.0"
 
-"typescript@^3.2.1 || ^4", "typescript@^4.7.2", "typescript@>= 2.7", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
+"typescript@^4.7.2", "typescript@>= 2.7", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
   "integrity" "sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A=="
   "resolved" "https://registry.npmmirror.com/typescript/-/typescript-4.7.2.tgz"
   "version" "4.7.2"

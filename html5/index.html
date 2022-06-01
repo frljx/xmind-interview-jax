@@ -44,7 +44,6 @@
         const xApp = new XApp(app, data)
 
         xApp.$on('search-change', function ({ month, category, type }) {
-          console.log(month, category)
           data.bill =
             month === '全部'
               ? bill

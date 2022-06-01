@@ -1,36 +1,47 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Main from './components/Main'
 import Footer from './components/Footer'
-import { csv2list } from './utils'
-
-// 加载资源
-const billText = require('./bill.csv')
-// const categoriesText = require('./static/categories.csv')
-
-type DataList = Array<{ [name: string]: string }>
+import AddAmount from './components/AddAmount'
+import { fetchData, inject } from './utils'
+import { IDataItem, IDataList } from './interface'
 
 function App() {
-  const [bill, setBill] = useState<DataList>([])
-  const [categories, setCategories] = useState<DataList>([])
+  const [bill, setBill] = useState<IDataList>([])
+  const [categories, setCategories] = useState<IDataList>([])
 
   useEffect(() => {
     const bootstrapApp = async () => {
-      console.log(billText)
-      let b = csv2list(billText)
-      // let c = csv2list(categoriesText)
+      // 模拟异步请求
+      let b = await fetchData('bill')
+      let c = await fetchData('categories')
+      b = inject(b, c)
       setBill(b)
-      // setCategories(c)
-      console.log(b)
+      setCategories(c)
     }
     bootstrapApp()
   }, [])
+  const handleAdd = useCallback(
+    function (values: IDataItem) {
+      // 使用回调的方式获取最新的账单
+      setBill((pre) => {
+        let item = inject([values], categories)
+        return [...pre, ...item]
+      })
+    },
+    [categories]
+  )
+
   return (
     <div className='App'>
-      <Header />
-      <Main />
-      <Footer />
+      <Header bill={bill} categories={categories} />
+      <Main bill={bill} />
+      <Footer bill={bill} />
+      <AddAmount
+        categories={categories}
+        onAdd={(values: IDataItem) => handleAdd(values)}
+      />
     </div>
   )
 }
